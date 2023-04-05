@@ -34,7 +34,7 @@ def command_help(message):
     cid = message.chat.id
     help_text = "The following commands are available: \n"
     for key in modules.COMMANDS:
-        help_text += '/' + key + ': '
+        help_text += f'/{key}: '
         help_text += modules.COMMANDS[key] + '\n'
     bot.send_message(cid, help_text)
 
@@ -71,7 +71,7 @@ def command_team(message):
     string = str(message.text).replace('/short ', '').split()
     url = ""
     custom = ""
-    if len(string) < 1:
+    if not string:
         bot.reply_to(message, "Too few arguments!")
     elif len(string) > 2:
         bot.reply_to(message, "Too many arguments!")
@@ -131,4 +131,6 @@ def command_stats(message):
 def command_unknown(message):
     command = str(message.text).split()[0]
     bot.reply_to(
-        message, "Sorry, {} command not found!\nPlease use /help to find all commands.".format(command))
+        message,
+        f"Sorry, {command} command not found!\nPlease use /help to find all commands.",
+    )

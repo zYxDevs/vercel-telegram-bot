@@ -69,12 +69,12 @@ def get_random_team(n_team, member_list):
         length = len(member_list)
         result = ''
         for i in range(n_team):
-            result += 'Team {}:\n'.format(i+1)
+            result += f'Team {i + 1}:\n'
             if i < n_plus:
                 result += member_list.pop(
                     random.randint(0,
                                    len(member_list) - 1)) + '\n'
-            for j in range(length // n_team):
+            for _ in range(length // n_team):
                 result += member_list.pop(
                     random.randint(0,
                                    len(member_list) - 1)) + '\n'
@@ -93,13 +93,13 @@ def get_github_stats(username, repo):
             API_BASE,
             headers={
                 'Accept': 'application/vnd.github+json',
-                'Authorization': 'Bearer {}'.format(GITHUB_TOKEN),
-                'X-GitHub-Api-Version': '2022-11-28'
-            }
+                'Authorization': f'Bearer {GITHUB_TOKEN}',
+                'X-GitHub-Api-Version': '2022-11-28',
+            },
         )
         r = response.json()
         for key, value in DATA_DICT.items():
-            RESULT = RESULT + f"{key}: {r[value]}\n"
+            RESULT = f"{RESULT}{key}: {r[value]}\n"
         commit = re.search('\d+$', requests.get(f'{API_BASE}/commits?per_page=1'
                                                 ).links['last']['url']).group()
         first_commit = requests.get(
